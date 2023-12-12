@@ -15,3 +15,10 @@ quote = client.quote(ticker)
 
 # Combine historical data with real-time quote
 combined_data = hist_data.append(quote.to_frame().transpose())
+
+# Calculate YTD performance
+ytd_start_date = datetime.datetime(2023, 1, 1)
+ytd_return = (combined_data["Close"][-1] - combined_data["Close"][0]) / combined_data["Close"][0] * 100
+
+# Add YTD performance to your data
+combined_data["YTD Return"] = ytd_return
