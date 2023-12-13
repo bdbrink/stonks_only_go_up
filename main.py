@@ -36,3 +36,12 @@ neutral_ratings = len([rating for rating in analyst_ratings if rating["rating"] 
 # Add analyst data to your data
 combined_data["Buy Ratings"] = buy_ratings
 combined_data["Neutral Ratings"] = neutral_ratings
+
+# Get analyst price targets from IEX Cloud
+analyst_target_data = client.analyst_estimates(ticker)
+
+# Calculate consensus price target
+consensus_target = sum(target["targetPrice"] for target in analyst_target_data) / len(analyst_target_data)
+
+# Add consensus price target to your data
+combined_data["Consensus Price Target"] = consensus_target
