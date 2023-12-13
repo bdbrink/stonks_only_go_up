@@ -8,12 +8,11 @@ start_date = datetime.datetime(2023, 10, 1)
 end_date = datetime.datetime(2023, 12, 11)
 # Initialize Finnhub client
 finnhub_client = finnhub.Client()
+client = IEXCloud(api_token)
+quote = client.quote(ticker)
 
 # Get historical data from Yahoo
 hist_data = yf.download(ticker, start=start_date, end=end_date)
-
-client = IEXCloud(api_token)
-quote = client.quote(ticker)
 
 # Combine historical data with real-time quote
 combined_data = hist_data.append(quote.to_frame().transpose())
