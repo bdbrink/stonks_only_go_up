@@ -44,3 +44,13 @@ consensus_target = sum(target["targetPrice"] for target in analyst_target_data) 
 
 # Add consensus price target to your data
 combined_data["Consensus Price Target"] = consensus_target
+
+def five_year_growth():
+    # Calculate start date for 5 years ago
+    five_years_ago = datetime.datetime.today() - timedelta(days=365*5)
+
+    # Update historical data timeframe
+    hist_data = yf.download(ticker, start=five_years_ago, end=end_date)
+
+    return hist_data
+
