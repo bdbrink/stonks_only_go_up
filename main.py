@@ -1,5 +1,6 @@
 import yfinance as yf
 from iexcloud import IEXCloud
+import datetime
 import finnhub
 
 # Define ticker and date range for historical data
@@ -24,26 +25,28 @@ ytd_return = (combined_data["Close"][-1] - combined_data["Close"][0]) / combined
 # Add YTD performance to your data
 combined_data["YTD Return"] = ytd_return
 
-analyst_recommendations = finnhub_client.recommendation(symbol=ticker, verbose=False)
-analyst_ratings = finnhub_client.analyst_ratings(symbol=ticker, verbose=False)
+def analayst_recs():
 
-# Extract relevant information
-buy_ratings = len([rating for rating in analyst_ratings if rating["rating"] == "Buy"])
-neutral_ratings = len([rating for rating in analyst_ratings if rating["rating"] == "Neutral"])
-# Process remaining sentiment data (hold, sell, etc.) as needed
+    analyst_recommendations = finnhub_client.recommendation(symbol=ticker, verbose=False)
+    analyst_ratings = finnhub_client.analyst_ratings(symbol=ticker, verbose=False)
 
-# Add analyst data to your data
-combined_data["Buy Ratings"] = buy_ratings
-combined_data["Neutral Ratings"] = neutral_ratings
+    # Extract relevant information
+    buy_ratings = len([rating for rating in analyst_ratings if rating["rating"] == "Buy"])
+    neutral_ratings = len([rating for rating in analyst_ratings if rating["rating"] == "Neutral"])
+    # Process remaining sentiment data (hold, sell, etc.) as needed
 
-# Get analyst price targets from IEX Cloud
-analyst_target_data = client.analyst_estimates(ticker)
+    # Add analyst data to your data
+    combined_data["Buy Ratings"] = buy_ratings
+    combined_data["Neutral Ratings"] = neutral_ratings
 
-# Calculate consensus price target
-consensus_target = sum(target["targetPrice"] for target in analyst_target_data) / len(analyst_target_data)
+    # Get analyst price targets from IEX Cloud
+    analyst_target_data = client.analyst_estimates(ticker)
 
-# Add consensus price target to your data
-combined_data["Consensus Price Target"] = consensus_target
+    # Calculate consensus price target
+    consensus_target = sum(target["targetPrice"] for target in analyst_target_data) / len(analyst_target_data)
+
+    # Add consensus price target to your data
+    combined_data["Consensus Price Target"] = consensus_target
 
 def five_year_growth():
     # Calculate start date for 5 years ago
