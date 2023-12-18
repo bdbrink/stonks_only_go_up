@@ -12,18 +12,20 @@ finnhub_client = finnhub.Client()
 client = IEXCloud(api_token)
 quote = client.quote(ticker)
 
-# Get historical data from Yahoo
-hist_data = yf.download(ticker, start=start_date, end=end_date)
+def year_to_date():
+    
+    # Get historical data from Yahoo
+    hist_data = yf.download(ticker, start=start_date, end=end_date)
 
-# Combine historical data with real-time quote
-combined_data = hist_data.append(quote.to_frame().transpose())
+    # Combine historical data with real-time quote
+    combined_data = hist_data.append(quote.to_frame().transpose())
 
-# Calculate YTD performance
-ytd_start_date = datetime.datetime(2023, 1, 1)
-ytd_return = (combined_data["Close"][-1] - combined_data["Close"][0]) / combined_data["Close"][0] * 100
+    # Calculate YTD performance
+    ytd_start_date = datetime.datetime(2023, 1, 1)
+    ytd_return = (combined_data["Close"][-1] - combined_data["Close"][0]) / combined_data["Close"][0] * 100
 
-# Add YTD performance to your data
-combined_data["YTD Return"] = ytd_return
+    # Add YTD performance to your data
+    combined_data["YTD Return"] = ytd_return
 
 def analayst_recs():
 
