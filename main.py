@@ -54,6 +54,8 @@ def analayst_recs():
     # Add consensus price target to your data
     combined_data["Consensus Price Target"] = consensus_target
 
+    return consensus_target
+
 def five_year_growth():
     # Calculate start date for 5 years ago
     five_years_ago = datetime.datetime.today() - timedelta(days=365*5)
