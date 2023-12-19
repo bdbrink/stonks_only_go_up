@@ -27,7 +27,11 @@ def year_to_date():
     # Add YTD performance to your data
     combined_data["YTD Return"] = ytd_return
 
+    return combined_data
+
 def analayst_recs():
+
+    combined_data = year_to_date()
 
     analyst_recommendations = finnhub_client.recommendation(symbol=ticker, verbose=False)
     analyst_ratings = finnhub_client.analyst_ratings(symbol=ticker, verbose=False)
