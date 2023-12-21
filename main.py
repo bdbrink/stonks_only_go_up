@@ -1,5 +1,6 @@
 import yfinance as yf
 from iexcloud import IEXCloud
+import numpy as np
 import datetime
 import finnhub
 

@@ -20,12 +20,13 @@ idna==3.6
     # via requests
 iexcloud==0.0.1
     # via -r requirements.txt
-lxml==4.9.3
+lxml==4.9.4
     # via yfinance
 multitasking==0.0.11
     # via yfinance
 numpy==1.26.2
     # via
+    #   -r requirements.txt
     #   pandas
     #   yfinance
 pandas==2.1.4
