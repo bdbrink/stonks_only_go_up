@@ -66,3 +66,10 @@ def five_year_growth():
 
     return hist_data
 
+def caclulate_cagr():
+
+    # Formula for CAGR
+    cagr = (np.power(combined_data["Close"][-1] / combined_data["Close"][0], 1 / (len(hist_data) / 365)) - 1) * 100
+
+    return cagr
+
