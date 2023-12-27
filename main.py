@@ -26,10 +26,7 @@ def year_to_date():
     ytd_start_date = datetime.datetime(2023, 1, 1)
     ytd_return = (combined_data["Close"][-1] - combined_data["Close"][0]) / combined_data["Close"][0] * 100
 
-    # Add YTD performance to your data
-    combined_data["YTD Return"] = ytd_return
-
-    return combined_data
+    return ytd_return
 
 def analayst_recs():
 
@@ -52,9 +49,6 @@ def analayst_recs():
 
     # Calculate consensus price target
     consensus_target = sum(target["targetPrice"] for target in analyst_target_data) / len(analyst_target_data)
-
-    # Add consensus price target to your data
-    combined_data["Consensus Price Target"] = consensus_target
 
     return consensus_target
 
