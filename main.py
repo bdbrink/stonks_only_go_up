@@ -74,3 +74,14 @@ def caclulate_cagr():
 
     return cagr
 
+def cacluate_fcf():
+
+    operating_cash_flow = math.nan
+
+    # Get capital expenditures data (can be from financial statements or API)
+    capital_expenditures = client.key_stats(ticker, stat="capitalexpenditures")["capitalexpenditures"]
+
+    # Calculate free cash flow
+    free_cash_flow = operating_cash_flow - capital_expenditures
+
+    return free_cash_flow
