@@ -3,6 +3,7 @@ from iexcloud import IEXCloud
 import numpy as np
 import datetime
 import finnhub
+import math
 
 # Define ticker and date range for historical data
 ticker = "AMZN"
