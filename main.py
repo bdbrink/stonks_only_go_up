@@ -8,7 +8,7 @@ import math
 # Define ticker and date range for historical data
 ticker = "AMZN"
 start_date = datetime.datetime(2023, 10, 1)
-end_date = datetime.datetime(2023, 12, 11)
+end_date = datetime.datetime(2028, 12, 11)
 # Initialize Finnhub client
 finnhub_client = finnhub.Client()
 client = IEXCloud(api_token)
