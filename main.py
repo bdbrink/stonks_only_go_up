@@ -4,6 +4,10 @@ import numpy as np
 import datetime
 import finnhub
 import math
+import logging
+from datetime import datetime
+from dateutil.parser import parse
+from newsapi import NewsApiClient
 
 # Define ticker and date range for historical data
 ticker = "AMZN"
@@ -79,3 +83,59 @@ def cacluate_fcf():
     free_cash_flow = operating_cash_flow - capital_expenditures
 
     return free_cash_flow
+
+def track_news(ticker, api_key, max_articles=5):
+  """
+  Tracks news articles related to a specific ticker symbol.
+
+  Args:
+    ticker: The stock ticker symbol.
+    api_key: News API key.
+    max_articles: Maximum number of articles to return (default: 5).
+
+  Returns:
+    A list of dictionaries containing news article information.
+
+  Raises:
+    ValueError: If the ticker symbol or API key is invalid.
+  """
+
+  if not ticker or not api_key:
+    raise ValueError("Missing required parameter: ticker or api_key")
+
+  logging.info(f"Tracking news for ticker: {ticker}")
+
+  # Initialize News API client
+  newsapi = NewsApiClient(api_key)
+
+  # Define search parameters
+  query = f"{ticker} OR ({ticker} stock)"
+  from_published_date = datetime.today().strftime("%Y-%m-%d")
+
+  # Get news articles
+  try:
+    articles = newsapi.get_top_headlines(
+        q=query,
+        language="en",
+        from_published_date=from_published_date,
+        sort_by="publishedAt",
+        page_size=max_articles,
+    )
+  except Exception as e:
+    logging.error(f"News API error: {e}")
+    return None
+
+  # Process and return articles
+  if not articles["articles"]:
+    logging.info("No news articles found for this ticker.")
+    return None
+
+  return [
+      {
+          "title": article["title"],
+          "source": article["source"]["name"],
+          "url": article["url"],
+          "published_date": parse(article["publishedAt"]).strftime("%Y-%m-%d"),
+      }
+      for article in articles["articles"]
+  ][:max_articles]
