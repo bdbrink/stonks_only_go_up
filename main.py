@@ -28,7 +28,6 @@ def year_to_date():
     combined_data = hist_data.append(quote.to_frame().transpose())
 
     # Calculate YTD performance
-    ytd_start_date = datetime.datetime(2023, 1, 1)
     ytd_return = (combined_data["Close"][-1] - combined_data["Close"][0]) / combined_data["Close"][0] * 100
 
     return ytd_return
