@@ -8,6 +8,7 @@ import logging
 from datetime import datetime
 from dateutil.parser import parse
 from newsapi import NewsApiClient
+import matplotlib.pyplot as plt
 
 # Define ticker and date range for historical data
 ticker = "AMZN"
@@ -144,3 +145,31 @@ def track_news(ticker, api_key, max_articles=5):
         }
         for article in articles["articles"]
     ][:max_articles]
+
+def visualize_price_and_performance(combined_data):
+    """
+    Visualizes price and performance data using Matplotlib.
+
+    Args:
+        combined_data: A pandas DataFrame containing historical price data,
+                      YTD return, and other relevant metrics.
+    """
+
+    # Create a figure and subplots
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 6))
+
+    # Plot historical price trends
+    ax1.plot(combined_data.index, combined_data["Close"], label="Close Price")
+    ax1.set_title("Historical Price Trends")
+    ax1.set_ylabel("Price")
+    ax1.legend()
+
+    # Plot YTD return and consensus price target
+    ax2.bar("YTD Return", combined_data["YTD Return"], color="green")
+    ax2.bar("Consensus Target", combined_data["Consensus Price Target"], color="orange")
+    ax2.set_title("YTD Performance and Price Target")
+    ax2.set_ylabel("% Return")
+
+    # Customize and display the plot
+    plt.tight_layout()
+    plt.show()
