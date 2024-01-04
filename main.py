@@ -8,6 +8,7 @@ import logging
 from datetime import datetime
 from dateutil.parser import parse
 from newsapi import NewsApiClient
+from textblob import TextBlob
 import matplotlib.pyplot as plt
 
 # Define ticker and date range for historical data
@@ -173,3 +174,20 @@ def visualize_price_and_performance(combined_data):
     # Customize and display the plot
     plt.tight_layout()
     plt.show()
+
+def analyze_sentiment(text, **kwargs):
+  """
+  Analyzes the sentiment of a text snippet using TextBlob.
+
+  Args:
+    text: The text string to analyze.
+    **kwargs: Additional arguments for TextBlob (e.g., language).
+
+  Returns:
+    A tuple containing the polarity and subjectivity scores.
+
+  Note: Polarity ranges from -1 (negative) to 1 (positive) and subjectivity from 0 (objective) to 1 (subjective).
+  """
+
+  analysis = TextBlob(text, **kwargs)
+  return analysis.sentiment.polarity, analysis.sentiment.subjectivity
