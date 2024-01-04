@@ -12,6 +12,8 @@ certifi==2023.11.17
     # via requests
 charset-normalizer==3.3.2
     # via requests
+click==8.1.7
+    # via nltk
 contourpy==1.2.0
     # via matplotlib
 cycler==0.12.1
@@ -28,6 +30,8 @@ iexcloud==0.0.1
     # via -r requirements.txt
 importlib-resources==6.1.1
     # via matplotlib
+joblib==1.3.2
+    # via nltk
 kiwisolver==1.4.5
     # via matplotlib
 lxml==5.0.0
@@ -38,6 +42,8 @@ multitasking==0.0.11
     # via yfinance
 newsapi==0.1.1
     # via -r requirements.txt
+nltk==3.8.1
+    # via textblob
 numpy==1.26.3
     # via
     #   -r requirements.txt
@@ -64,6 +70,8 @@ pytz==2023.3.post1
     # via
     #   pandas
     #   yfinance
+regex==2023.12.25
+    # via nltk
 requests==2.31.0
     # via
     #   iexcloud
@@ -75,6 +83,10 @@ six==1.16.0
     #   python-dateutil
 soupsieve==2.5
     # via beautifulsoup4
+textblob==0.17.1
+    # via -r requirements.txt
+tqdm==4.66.1
+    # via nltk
 tzdata==2023.4
     # via pandas
 urllib3==2.1.0
