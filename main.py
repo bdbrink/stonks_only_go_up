@@ -193,3 +193,36 @@ def analyze_sentiment(text, **kwargs):
 
   analysis = TextBlob(text, **kwargs)
   return analysis.sentiment.polarity, analysis.sentiment.subjectivity
+
+def track_yahoo_sentiment(ticker, max_conversations=10):
+    """
+    Tracks and analyzes sentiment of Yahoo Finance conversations for a ticker.
+
+    Args:
+        ticker: The stock ticker symbol.
+        max_conversations: Maximum number of conversations to analyze (default: 10).
+
+    Returns:
+        A list of dictionaries containing conversation snippets and sentiment scores.
+    """
+
+    url = f"https://finance.yahoo.com/quote/{ticker}/conversations?start={max_conversations}"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, "lxml")
+
+    conversations = []
+    for message in soup.find_all("div", class_="msg-box__content"):
+        text = message.text.strip()
+        if text:
+            conversations.append(text)
+
+    sentiment_data = []
+    for conversation in conversations:
+        polarity, subjectivity = analyze_sentiment(conversation)
+        sentiment_data.append({
+            "text": conversation,
+            "polarity": polarity,
+            "subjectivity": subjectivity,
+        })
+
+    return sentiment_data
