@@ -10,6 +10,8 @@ from dateutil.parser import parse
 from newsapi import NewsApiClient
 from textblob import TextBlob
 import matplotlib.pyplot as plt
+from bs4 import BeautifulSoup
+import requests
 
 # Define ticker and date range for historical data
 ticker = "AMZN"
